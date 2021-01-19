@@ -15,7 +15,7 @@
     <van-tabs class="channel" v-model="active" animated swipeable>
       <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
         <!-- 文章列表 -->
-        <articel-list :channel="channel"></articel-list>
+        <articel-list :channel="channel" @scroll.native="scrollstr"></articel-list>
       </van-tab>
       <template #nav-right>
         <div class="placeholder"></div>
@@ -48,8 +48,10 @@ import articelList from './componnents/articel-list.vue';
 import ChannelEdit from './componnents/channel-edit.vue';
 import { mapState } from 'vuex';
 import { getItem } from '@/utils/storage.js';
+let scrollTarget = null; // 距离顶部滚动对象
+let scrollTop = 0; // 滚动条默认值
 export default {
-  name: 'HomeIdex',
+  name: 'Home',
   components: {
     articelList,
     ChannelEdit,
@@ -101,6 +103,16 @@ export default {
       this.active = event;
       this.isChannelShow = cmmirshow;
     },
+    scrollstr(e) {
+      scrollTarget = e.target;
+      scrollTop = e.target.scrollTop;
+    },
+  },
+  activated() {
+    console.log('activated');
+    if (scrollTarget) {
+      scrollTarget.scroll(0, scrollTop);
+    }
   },
 };
 </script>

@@ -1,7 +1,17 @@
 import axios from 'axios';
 import store from '@/store';
+import JSONBig from 'json-bigint';
 const request = axios.create({
   baseURL: 'http://toutiao-app.itheima.net',
+  transformResponse: [
+    function (data) {
+      try {
+        return JSONBig.parse(data);
+      } catch (err) {
+        return data;
+      }
+    },
+  ],
 });
 // 请求拦截器
 // Add a request interceptor

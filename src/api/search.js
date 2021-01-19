@@ -10,3 +10,10 @@ export const getAllchannels = (q) => {
     params: { q },
   });
 };
+export const getAllsearch = (params) => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/search',
+    params,
+  });
+};

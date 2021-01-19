@@ -29,5 +29,22 @@ const login = {
       // headers: { Authorization: `Bearer ${store.state.user.token}` },
     });
   },
+  // 关注用户
+  articletarge(target) {
+    return request({
+      method: 'POST',
+      url: '/v1_0/user/followings',
+      data: {
+        target,
+      },
+    });
+  },
+  // 取消关注用户
+  deletearticle(target) {
+    return request({
+      method: 'DELETE',
+      url: `/v1_0/user/followings/${target}`,
+    });
+  },
 };
 export default login;

@@ -1,6 +1,11 @@
 <template>
   <div class="search-gtions">
-    <van-cell icon="search" v-for="(item, index) in sections" :key="index">
+    <van-cell
+      icon="search"
+      v-for="(item, index) in sections"
+      :key="index"
+      @click="$emit('search', item)"
+    >
       <template #title>
         <div v-html="heightlit(item)"></div>
       </template>
@@ -21,7 +26,9 @@ export default {
     },
   },
   data() {
-    return { sections: [] };
+    return {
+      sections: [],
+    };
   },
   watch: {
     HistoryText: {
@@ -38,7 +45,6 @@ export default {
       try {
         const { data } = await getAllchannels(q);
         this.sections = data.data.options;
-        console.log(this.sections);
       } catch (err) {
         this.$toast('请求数据失败，请稍后重试');
       }
